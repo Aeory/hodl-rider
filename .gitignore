@@ -3,3 +3,4 @@ venv
 coindesk/cache/*
 .idea
 __pycache__
+tracks/*
