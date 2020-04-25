@@ -1,9 +1,8 @@
 from coindesk import client
-from models import Track, Line
+from models import Track, Point
 from dateutil import parser
 
-
-START_DATE = '2010-01-01'
+START_DATE = '2010-07-17'
 END_DATE = '2020-04-25'
 
 X_SCALE = 1
@@ -17,9 +16,12 @@ track = Track(
     parser.parse(END_DATE),
     X_SCALE,
     Y_SCALE,
+    'BTC',
     [
-        Line(
-
+        Point(
+            i,
+            v
         )
+        for i, v in enumerate(index_data.values())
     ]
 )
