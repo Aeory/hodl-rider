@@ -37,10 +37,25 @@ def track_to_json(track: Track, filename=None):
         ],
         "lines": []
     }
-    for idx, line in enumerate(track.lines):
+    for idx, line in enumerate(track.smoothed_lines):
         linerider_line = {
             "id": idx + 1,
-            "type": 1,
+            "type": int(not idx % 2),
+            "x1": line.point_a.x,
+            "y1": line.point_a.y,
+            "x2": line.point_b.x,
+            "y2": line.point_b.y,
+            "flipped": False,
+            "leftExtended": False,
+            "rightExtended": False
+        }
+        linerider_track['lines'].append(linerider_line)
+
+    last_index = idx
+    for idx, line in enumerate(track.lines):
+        linerider_line = {
+            "id": idx + 1 + last_index,
+            "type": 2,
             "x1": line.point_a.x,
             "y1": line.point_a.y,
             "x2": line.point_b.x,

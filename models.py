@@ -21,7 +21,8 @@ class Track:
             x_scale: float = 1,
             y_scale: float = 100,
             ticker: str = "BTC",
-            points: List['Point'] = None
+            points: List['Point'] = None,
+            smoothing_coefficient: int = 5
     ):
         if not x_scale or not y_scale:
             raise ValueError("x-scale and y-scale values must be non-zero")
@@ -32,6 +33,10 @@ class Track:
         self.ticker = ticker
         self.points: List[Point] = points or []
         self._lines: List[Line] = []
+        self._smoothed_lines: List[Line] = []
+        self._smoothing_coefficient = smoothing_coefficient
+
+        self._smoothing_algorithm = 'ROLLING_AVERAGE'
 
     @property
     def lines(self):
@@ -58,6 +63,39 @@ class Track:
                 )
                 last_point = point
         return self._lines
+
+    @property
+    def smoothed_lines(self):
+        if self._smoothing_algorithm != 'ROLLING_AVERAGE':
+            raise NotImplementedError()
+
+        if not self._smoothed_lines:
+            if len(self.points) < self._smoothing_coefficient:
+                raise ValueError('Not enough points to create smoothed lines')
+
+            last_point = self.points[0]
+            for i in range(self._smoothing_coefficient - 1, len(self.points)):
+                last_n_points = self.points[i - (self._smoothing_coefficient-1): i+1]
+
+                averaged_point = Point(
+                    x=sum([point.x for point in last_n_points]) / self._smoothing_coefficient,
+                    y=sum([point.y for point in last_n_points]) / self._smoothing_coefficient
+                )
+                self._smoothed_lines.append(
+                    Line(
+                        point_a=last_point.rescale(
+                            x_scale=self.x_scale,
+                            y_scale=self.y_scale
+                        ),
+                        point_b=averaged_point.rescale(
+                            x_scale=self.x_scale,
+                            y_scale=self.y_scale
+                        ),
+                    )
+                )
+                last_point = averaged_point
+
+        return self._smoothed_lines
 
 
 @dataclass
