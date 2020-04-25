@@ -1,5 +1,5 @@
 venv
 
-coindesk/cache
+coindesk/cache/*
 .idea
 __pycache__
