@@ -3,6 +3,7 @@ from dateutil import parser
 
 from models import Track, Line, Point
 
+
 class TrackTestCase(unittest.TestCase):
 
     def test_track_point_conversions(self):
