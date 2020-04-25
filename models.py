@@ -33,7 +33,6 @@ class Track:
         self.points: List[Point] = points or []
         self._lines: List[Line] = []
 
-
     @property
     def lines(self):
         """Scaled lines from the input points.
@@ -93,4 +92,9 @@ class Line:
     def __len__(self):
         return math.sqrt((self.point_b[1] - self.point_a[1]) ** 2 + (self.point_b[1] - self.point_a[1]) ** 2)
 
+    @property
+    def gradient(self):
+        delta_x = self.point_a.x - self.point_b.x
+        delta_y = self.point_a.y - self.point_b.y
 
+        return delta_y / delta_x
