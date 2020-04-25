@@ -18,7 +18,7 @@ def get(from_date: str, to_date: str) -> dict:
         }
     )
 
-    result_json = result.json()
+    result_json = result.json()['bpi']
     open(cache_name, 'w').write(json.dumps(result_json))
 
-    return result_json['bpi']
+    return result_json
