@@ -58,3 +58,4 @@ def track_to_json(track: Track, filename=None):
 def create_json(filename: str="example", json_content: str= "{}"):
     with open(f"{filename}.json", 'w+') as file:
         file.write(json_content)
+    return file.name
