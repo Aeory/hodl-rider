@@ -21,14 +21,14 @@ class Track:
             x_scale: float = 1,
             y_scale: float = 0.001,
             ticker: str = "BTC",
-            points=List['Point']
+            points: List['Point'] = None
     ):
         self.start_date = start_date
         self.end_date = end_date
         self.x_scale = x_scale
         self.y_scale = y_scale
         self.ticker = ticker
-        self.points: List[Point] = points
+        self.points: List[Point] = points or []
 
 
 @dataclass
