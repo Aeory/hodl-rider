@@ -1,0 +1,60 @@
+from models import Track, Line
+import json
+import datetime
+
+
+def track_to_json_format(track: Track):
+    linerider_track = {
+        "label": f"{track.ticker}-{str(datetime.datetime.now())}",
+        "creator": "hodl-rider v0.1",
+        "description": "",
+        "duration": 40,
+        "version": "6.2",
+        "audio": None,
+        "startPosition": {
+            "x": 0,
+            "y": 0
+        },
+        "riders": [
+            {
+                "startPosition": {
+                    "x": 0,
+                    "y": 0
+                },
+                "startVelocity": {
+                    "x": 0.4,
+                    "y": 0
+                },
+                "remountable": True
+            }
+        ],
+        "layers": [
+            {
+                "id": 0,
+                "name": "Base Layer",
+                "visible": True
+            }
+        ],
+        "lines": []
+    }
+    for idx, line in enumerate(track.lines):
+        linerider_line = {
+            "id": idx,
+            "type": 0,
+            "x1": line.point_a[0],
+            "y1": line.point_a[1],
+            "x2": line.point_b[0],
+            "y2": line.point_b[1],
+            "flipped": False,
+            "leftExtended": False,
+            "rightExtended": False
+        }
+        linerider_track['lines'].append(linerider_line)
+    content = json.dumps(linerider_track)
+    create_json(filename=linerider_track['label'], json_content=content)
+    return linerider_track
+
+
+def create_json(filename: str="example", json_content: str= "{}"):
+    with open(f"{filename}.json", 'w') as file:
+        file.write(json_content)
