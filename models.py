@@ -40,25 +40,23 @@ class Track:
         Note: len(lines) == len(points) - 1.
         """
         if not self._lines:
+            if len(self.points) < 2:
+                raise ValueError('Not enough points to create lines')
             last_point = self.points[0]
-            for point in self.points:
-                if point == last_point:
-                    # Initial condition
-                    pass
-                else:
-                    self._lines.append(
-                        Line(
-                            point_a=last_point.rescale(
-                                x_scale=self.x_scale,
-                                y_scale=self.y_scale
-                            ),
-                            point_b=point.rescale(
-                                x_scale=self.x_scale,
-                                y_scale=self.y_scale
-                            ),
-                        )
+            for point in self.points[1:]:
+                self._lines.append(
+                    Line(
+                        point_a=last_point.rescale(
+                            x_scale=self.x_scale,
+                            y_scale=self.y_scale
+                        ),
+                        point_b=point.rescale(
+                            x_scale=self.x_scale,
+                            y_scale=self.y_scale
+                        ),
                     )
-                    last_point = point
+                )
+                last_point = point
         return self._lines
 
 
@@ -84,13 +82,12 @@ class Line:
 
     Methods:
         len(line) returns the length of the line segment from point_a to point_b
-
     """
     point_a: Point
     point_b: Point
 
     def __len__(self):
-        return math.sqrt((self.point_b[1] - self.point_a[1]) ** 2 + (self.point_b[1] - self.point_a[1]) ** 2)
+        return math.sqrt((self.point_b.x - self.point_a.x) ** 2 + (self.point_b.y - self.point_a.y) ** 2)
 
     @property
     def gradient(self):
