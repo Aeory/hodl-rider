@@ -1,10 +1,10 @@
-from models import Track, Line
-from datetime import date
+from models import Track, Line, Point
+from dateutil import parser
 
-example_track = Track(start_date=date('2010-01-01'), end_date=date('2020-01-01'))
-example_track.lines.add(
+example_track = Track(start_date=parser.parse('2010-01-01'), end_date=parser.parse('2020-01-01'))
+example_track.lines.append(
     Line(
-        point_a=(-10, 20),
-        point_b=(50, 25)
+        point_a=Point(x=-10, y=20),
+        point_b=Point(x=50, y=25)
     )
 )

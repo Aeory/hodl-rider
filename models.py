@@ -29,6 +29,7 @@ class Track:
         self.y_scale = y_scale
         self.ticker = ticker
         self.points: List[Point] = points or []
+        self.lines: List[Line] = []
 
 
 @dataclass

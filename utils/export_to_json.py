@@ -3,9 +3,9 @@ import json
 import datetime
 
 
-def track_to_json(track: Track):
+def track_to_json(track: Track, filename=None):
     linerider_track = {
-        "label": f"{track.ticker}-hodl-rider",
+        "label": filename or f"{track.ticker}-hodl-rider",
         "creator": "hodl-rider v0.1",
         "description": "",  # f"Line rider created with hodl-rider tracking {track.ticker} from {track.from_date} to {track.to_date}.",
         "duration": 40,
@@ -39,12 +39,12 @@ def track_to_json(track: Track):
     }
     for idx, line in enumerate(track.lines):
         linerider_line = {
-            "id": idx,
+            "id": idx + 1,
             "type": 0,
-            "x1": line.point_a[0],
-            "y1": line.point_a[1],
-            "x2": line.point_b[0],
-            "y2": line.point_b[1],
+            "x1": line.point_a.x,
+            "y1": line.point_a.y,
+            "x2": line.point_b.x,
+            "y2": line.point_b.y,
             "flipped": False,
             "leftExtended": False,
             "rightExtended": False
@@ -56,5 +56,5 @@ def track_to_json(track: Track):
 
 
 def create_json(filename: str="example", json_content: str= "{}"):
-    with open(f"{filename}.json", 'w') as file:
+    with open(f"{filename}.json", 'w+') as file:
         file.write(json_content)
