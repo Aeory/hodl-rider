@@ -14,13 +14,21 @@ class Track:
 
     """
 
-    def __init__(self, start_date: date, end_date: date, x_scale: float=1, y_scale: float=0.001, ticker: str="BTC", points=List['Line']):
+    def __init__(
+            self,
+            start_date: date,
+            end_date: date,
+            x_scale: float = 1,
+            y_scale: float = 0.001,
+            ticker: str = "BTC",
+            points=List['Point']
+    ):
         self.start_date = start_date
         self.end_date = end_date
         self.x_scale = x_scale
         self.y_scale = y_scale
         self.ticker = ticker
-        self.points: List[Line] = points
+        self.points: List[Point] = points
 
 
 @dataclass
