@@ -24,6 +24,12 @@ class Track:
 
 
 @dataclass
+class Point:
+    x: float
+    y: float
+
+
+@dataclass
 class Line:
     """A single line segment, connecting two points on a track
 
