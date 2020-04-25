@@ -3,11 +3,11 @@ import json
 import datetime
 
 
-def track_to_json_format(track: Track):
+def track_to_json(track: Track):
     linerider_track = {
-        "label": f"{track.ticker}-{str(datetime.datetime.now())}",
+        "label": f"{track.ticker}-hodl-rider",
         "creator": "hodl-rider v0.1",
-        "description": "",
+        "description": "",  # f"Line rider created with hodl-rider tracking {track.ticker} from {track.from_date} to {track.to_date}.",
         "duration": 40,
         "version": "6.2",
         "audio": None,

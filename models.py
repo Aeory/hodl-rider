@@ -41,8 +41,8 @@ class Line:
         len(line) returns the length of the line segment from point_a to point_b
 
     """
-    point_a: tuple
-    point_b: tuple
+    point_a: Point
+    point_b: Point
 
     def __len__(self):
         return math.sqrt((self.point_b[1] - self.point_a[1])**2 + (self.point_b[1] - self.point_a[1])**2)
