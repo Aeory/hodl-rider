@@ -1,15 +1,13 @@
 import json
 import requests
 import os
+from utils.cache import json_cache
 
 COINDESK_API = 'https://api.coindesk.com/v1/bpi/historical/close.json'
 
 
+@json_cache('coindesk')
 def get(from_date: str, to_date: str) -> dict:
-    cache_name = f'coindesk/cache/{from_date}-{to_date}.json'
-    if os.path.exists(cache_name):
-        return json.loads(open(cache_name).read())
-
     result = requests.get(
         COINDESK_API,
         params={
@@ -19,6 +17,5 @@ def get(from_date: str, to_date: str) -> dict:
     )
 
     result_json = result.json()['bpi']
-    open(cache_name, 'w').write(json.dumps(result_json))
 
     return result_json

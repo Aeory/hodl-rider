@@ -1,6 +1,7 @@
 venv
-
+.env
 coindesk/cache/*
 .idea
 __pycache__
 tracks/*
+.env

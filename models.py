@@ -4,8 +4,7 @@ from datetime import date
 from typing import List
 from enum import Enum
 from random import random
-
-STARTING_ACCELERATION_LINES = 30
+import settings
 
 
 class Track:
@@ -26,7 +25,7 @@ class Track:
             y_scale: float = 100,
             ticker: str = "BTC",
             points: List['Point'] = None,
-            smoothing_coefficient: int = 20
+            smoothing_coefficient: int = settings.SMOOTHING['coefficient']
     ):
         if not x_scale or not y_scale:
             raise ValueError("x-scale and y-scale values must be non-zero")
@@ -39,8 +38,8 @@ class Track:
         self._lines: List[Line] = []
         self._smoothed_lines: List[Line] = []
         self._smoothing_coefficient = smoothing_coefficient
-
-        self._smoothing_algorithm = 'ROLLING_AVERAGE'
+        self._starting_acceleration_lines = settings.STARTING_ACCELERATION_LINES
+        self._smoothing_algorithm = settings.SMOOTHING['type']
 
     @property
     def lines(self):
@@ -102,9 +101,9 @@ class Track:
         return self._smoothed_lines
 
     def _calculate_acceleration(self):
-        for line in self._smoothed_lines[:STARTING_ACCELERATION_LINES]:
+        for line in self._smoothed_lines[:self._starting_acceleration_lines]:
             line.type = LineType.ACCELERATION
-        for line in self._smoothed_lines[STARTING_ACCELERATION_LINES:]:
+        for line in self._smoothed_lines[self._starting_acceleration_lines:]:
             # The chance starts at 20% for flat lines, and is increased or decreased by the angle, maxing at 100%
             # for angles of 36 degrees of more, and dropping to 0% chance at angles less than -25 degrees.
             chance = min(line.angle / 45 + .2, 1)
