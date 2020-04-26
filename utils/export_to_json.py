@@ -2,6 +2,8 @@ from models import Track, Line
 import json
 import datetime
 
+from utils.string import string_to_track
+
 
 def track_to_json(track: Track, filename=None):
     linerider_track = {
@@ -65,6 +67,11 @@ def track_to_json(track: Track, filename=None):
             "rightExtended": False
         }
         linerider_track['lines'].append(linerider_line)
+
+    linerider_track['lines'].extend(
+        string_to_track('Alex and Henry made this linerider tool', 0, 200, id_start=len(linerider_track['lines']), scale=0.5)
+    )
+
     content = json.dumps(linerider_track)
     create_json(filename=linerider_track['label'], json_content=content)
     return linerider_track
