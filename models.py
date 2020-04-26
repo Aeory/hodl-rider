@@ -118,7 +118,7 @@ class Track:
 class Point:
     x: float
     y: float
-    date_recorded: date
+    date_recorded: date = date.today()
 
     def rescale(self, x_scale, y_scale):
         return Point(
