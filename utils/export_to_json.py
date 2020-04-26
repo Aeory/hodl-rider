@@ -1,6 +1,5 @@
-from models import Track, Line
+from models import Track
 import json
-import datetime
 
 from utils.string import string_to_track
 
