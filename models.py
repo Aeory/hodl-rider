@@ -107,7 +107,7 @@ class Track:
         for line in self._smoothed_lines[self._starting_acceleration_lines:]:
             # The chance starts at 20% for flat lines, and is increased or decreased by the angle, maxing at 100%
             # for angles of 36 degrees of more, and dropping to 0% chance at angles less than -25 degrees.
-            chance = min(line.angle / 45 + .2, 1)
+            chance = min(line.angle / 45 + settings.MINIMUM_ACCELERATION_CHANCE, 1)
             if random() < chance:
                 line.type = LineType.ACCELERATION
             else:

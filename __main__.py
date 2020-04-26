@@ -11,9 +11,12 @@ start_date = input("What date would you like the track to start at? (Default - e
 end_date = input("What date would you like the track to end at? (Default - latest available)") or str(date.today())
 
 SCALES = {
-    'btcusd': (0.1, -10)
+    'btcusd': (0.1, -10),
+    'googl': (0.1, -2),
+    'aapl': (0.1, -0.4),
+    'nflx': (0.1, -0.3)
 }
-x_scale, y_scale = SCALES.get(TICKER, (0.1, -0.1))
+x_scale, y_scale = SCALES.get(ticker.lower(), (0.1, -0.1))
 print(f'Scales X:{x_scale} Y:{y_scale}')
 
 data = tiingo_client.get(start_date, end_date, ticker)
