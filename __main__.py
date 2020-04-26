@@ -22,16 +22,17 @@ print(f'Scales X:{x_scale} Y:{y_scale}')
 data = tiingo_client.get(start_date, end_date, ticker)
 start = data[0]['close']
 track = Track(
-    parser.parse(start_date or '1900-01-01').date(),
-    parser.parse(end_date or str(date.today())).date(),
+    parser.parse(min(d['date'] for d in data)).date(),
+    parser.parse(max(d['date'] for d in data)).date(),
     x_scale,
     y_scale,
     ticker,
     [
         Point(
-            idx + settings.STARTING_AREA_X * x_scale,
-            day['close'] - start + settings.STARTING_AREA_Y * y_scale,
-            parser.parse(day['date']).date()
+            x=idx + settings.STARTING_AREA_X * x_scale,
+            y=day['close'] - start + settings.STARTING_AREA_Y * y_scale,
+            date_recorded=parser.parse(day['date']).date(),
+            price=day['close']
         )
         for idx, day in enumerate(data)
     ]

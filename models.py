@@ -61,7 +61,9 @@ class Track:
                             x_scale=self.x_scale,
                             y_scale=self.y_scale
                         ),
-                        type=LineType.SCENERY
+                        type=LineType.SCENERY,
+                        start_date=point.date_recorded,
+                        price=point.price
                     )
                 )
                 last_point = point
@@ -83,7 +85,8 @@ class Track:
                 averaged_point = Point(
                     x=sum([point.x for point in last_n_points]) / self._smoothing_coefficient,
                     y=sum([point.y for point in last_n_points]) / self._smoothing_coefficient,
-                    date_recorded=self.points[i].date_recorded
+                    date_recorded=self.points[i].date_recorded,
+                    price=self.points[i].price
                 )
                 self._smoothed_lines.append(
                     Line(
@@ -95,6 +98,8 @@ class Track:
                             x_scale=self.x_scale,
                             y_scale=self.y_scale
                         ),
+                        start_date=last_point.date_recorded,
+                        price=last_point.price
                     )
                 )
                 last_point = averaged_point
@@ -118,13 +123,15 @@ class Track:
 class Point:
     x: float
     y: float
+    price: float = None
     date_recorded: date = date.today()
 
     def rescale(self, x_scale, y_scale):
         return Point(
             x=self.x / x_scale,
             y=self.y / y_scale,
-            date_recorded=self.date_recorded
+            date_recorded=self.date_recorded,
+            price=self.price
         )
 
 
@@ -147,6 +154,9 @@ class Line:
     """
     point_a: Point
     point_b: Point
+
+    price: float = None
+    start_date: date = None
     type: int = LineType.NORMAL
 
     def __len__(self):
@@ -164,6 +174,3 @@ class Line:
         """Returns the negative angle in degrees (as linerider inverts the y-axis)"""
         return -math.degrees(math.atan(self.gradient))
 
-    @property
-    def date_recorded(self) -> date:
-        return self.point_a.date_recorded

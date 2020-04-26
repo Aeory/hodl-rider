@@ -1,6 +1,5 @@
 import json
-from typing import Union
-from models import Line, Track
+from models import Track
 from linewriter.string import string_to_track
 import settings
 from starting_area import starting_lines
@@ -15,37 +14,37 @@ class LineRiderTrack:
         self.description = f"Line rider created with hodl-rider tracking {track.ticker} from {track.start_date} to {track.end_date}."
         self.version = "6.2"
         self.startPosition = {
-                                 "x": 0,
-                                 "y": -1
-                             }
+            "x": 0,
+            "y": -1
+        }
         self.riders = [
-                          {
-                              "startPosition": {
-                                  "x": 0,
-                                  "y": 0
-                              },
-                              "startVelocity": {
-                                  "x": 0.2,
-                                  "y": 0
-                              },
-                              "remountable": True
-                          }
-                      ]
+            {
+                "startPosition": {
+                    "x": 0,
+                    "y": 0
+                },
+                "startVelocity": {
+                    "x": 0.2,
+                    "y": 0
+                },
+                "remountable": True
+            }
+        ]
         self.lines = []
         last_year = 0
         last_month = 0
         for line in track.lines:
             self.lines.append(LineRiderLine(line))
-            if (last_year < line.date_recorded.year) or (last_month < line.date_recorded.month):
+            if (last_year < line.start_date.year) or (last_month < line.start_date.month):
                 label = string_to_track(
-                    s=line.date_recorded.isoformat(),
+                    s=f'{line.start_date.isoformat()} - ${round(line.price, 2)}',
                     x=line.point_a.x,
                     y=line.point_b.y - 50,
                     scale=0.1
                 )
                 self.lines.extend(label)
-                last_year = line.date_recorded.year
-                last_month = line.date_recorded.month
+                last_year = line.start_date.year
+                last_month = line.start_date.month
         for line in track.smoothed_lines:
             self.lines.append(LineRiderLine(line))
 
