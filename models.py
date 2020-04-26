@@ -2,6 +2,10 @@ import math
 from dataclasses import dataclass
 from datetime import date
 from typing import List
+from enum import Enum
+from random import random
+
+STARTING_ACCELERATION_LINES = 30
 
 
 class Track:
@@ -22,7 +26,7 @@ class Track:
             y_scale: float = 100,
             ticker: str = "BTC",
             points: List['Point'] = None,
-            smoothing_coefficient: int = 5
+            smoothing_coefficient: int = 20
     ):
         if not x_scale or not y_scale:
             raise ValueError("x-scale and y-scale values must be non-zero")
@@ -75,7 +79,7 @@ class Track:
 
             last_point = self.points[0]
             for i in range(self._smoothing_coefficient - 1, len(self.points)):
-                last_n_points = self.points[i - (self._smoothing_coefficient-1): i+1]
+                last_n_points = self.points[i - (self._smoothing_coefficient - 1): i + 1]
 
                 averaged_point = Point(
                     x=sum([point.x for point in last_n_points]) / self._smoothing_coefficient,
@@ -94,8 +98,20 @@ class Track:
                     )
                 )
                 last_point = averaged_point
-
+            self._calculate_acceleration()
         return self._smoothed_lines
+
+    def _calculate_acceleration(self):
+        for line in self._smoothed_lines[:STARTING_ACCELERATION_LINES]:
+            line.type = LineType.ACCELERATION
+        for line in self._smoothed_lines[STARTING_ACCELERATION_LINES:]:
+            # The chance starts at 20% for flat lines, and is increased or decreased by the angle, maxing at 100%
+            # for angles of 36 degrees of more, and dropping to 0% chance at angles less than -25 degrees.
+            chance = min(line.angle / 45 + .2, 1)
+            if random() < chance:
+                line.type = LineType.ACCELERATION
+            else:
+                line.type = LineType.NORMAL
 
 
 @dataclass
@@ -108,6 +124,12 @@ class Point:
             x=self.x / x_scale,
             y=self.y / y_scale
         )
+
+
+class LineType:
+    NORMAL = 0
+    ACCELERATION = 1
+    SCENERY = 2
 
 
 @dataclass
@@ -123,6 +145,7 @@ class Line:
     """
     point_a: Point
     point_b: Point
+    type: int = LineType.NORMAL
 
     def __len__(self):
         return math.sqrt((self.point_b.x - self.point_a.x) ** 2 + (self.point_b.y - self.point_a.y) ** 2)
@@ -133,3 +156,8 @@ class Line:
         delta_y = self.point_a.y - self.point_b.y
 
         return delta_y / delta_x
+
+    @property
+    def angle(self):
+        """Returns the negative angle in degrees (as linerider inverts the y-axis)"""
+        return -math.degrees(math.atan(self.gradient))

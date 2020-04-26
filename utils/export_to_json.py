@@ -40,7 +40,7 @@ def track_to_json(track: Track, filename=None):
     for idx, line in enumerate(track.smoothed_lines):
         linerider_line = {
             "id": idx + 1,
-            "type": int(not idx % 2),
+            "type": line.type,  # int(not idx % 2),
             "x1": line.point_a.x,
             "y1": line.point_a.y,
             "x2": line.point_b.x,
