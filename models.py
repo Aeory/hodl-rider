@@ -61,6 +61,7 @@ class Track:
                             x_scale=self.x_scale,
                             y_scale=self.y_scale
                         ),
+                        type=LineType.SCENERY
                     )
                 )
                 last_point = point
