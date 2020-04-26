@@ -14,6 +14,6 @@ def get(from_date: str, to_date: str) -> dict:
         }
     )
 
-    result_json = result.json()['bpi']
+    result_json = result.json()
 
-    return result_json
+    return result_json['bpi']

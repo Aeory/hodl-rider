@@ -10,11 +10,11 @@ TIINGO_CONFIG = {
 
 RESAMPLE_FREQUENCY = 'daily'
 
-STARTING_ACCELERATION_LINES = 1
+STARTING_ACCELERATION_LINES = 5
 
 SMOOTHING = {
     'type': 'ROLLING_AVERAGE',
-    'coefficient': 3
+    'coefficient': 10
 }
 
 STARTING_TRACK = True
