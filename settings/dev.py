@@ -14,5 +14,5 @@ STARTING_ACCELERATION_LINES = 30
 
 SMOOTHING = {
     'type': 'ROLLING_AVERAGE',
-    'coefficient': 10
+    'coefficient': 20
 }

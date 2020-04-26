@@ -1,4 +1,4 @@
-
+from datetime import date
 from tiingo import TiingoClient
 import settings
 from typing import Union, List
@@ -13,7 +13,7 @@ def get(from_date: Union[str, None], to_date: Union[str, None], ticker: str = 'B
         ticker=ticker,
         fmt='json',
         startDate=from_date,
-        endDate=to_date,
+        endDate=to_date or str(date.today()),
         frequency=settings.RESAMPLE_FREQUENCY
     )
     return data
