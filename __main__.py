@@ -24,9 +24,10 @@ if TICKER == 'BTC':
         [
             Point(
                 i,
-                v
+                v,
+                parser.parse(k).date()
             )
-            for i, v in enumerate(index_data.values())
+            for i, (k, v) in enumerate(index_data.items())
         ]
     )
 else:
@@ -41,7 +42,8 @@ else:
         [
             Point(
                 idx - 2,
-                day['close'] - start - 3
+                day['close'] - start - 3,
+                parser.parse(day['date']).date()
             )
             for idx, day in enumerate(data)
         ]

@@ -1,6 +1,4 @@
-import json
 import requests
-import os
 from utils.cache import json_cache
 
 COINDESK_API = 'https://api.coindesk.com/v1/bpi/historical/close.json'

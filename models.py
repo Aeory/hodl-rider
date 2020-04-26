@@ -81,7 +81,8 @@ class Track:
 
                 averaged_point = Point(
                     x=sum([point.x for point in last_n_points]) / self._smoothing_coefficient,
-                    y=sum([point.y for point in last_n_points]) / self._smoothing_coefficient
+                    y=sum([point.y for point in last_n_points]) / self._smoothing_coefficient,
+                    date_recorded=self.points[i].date_recorded
                 )
                 self._smoothed_lines.append(
                     Line(
@@ -116,11 +117,13 @@ class Track:
 class Point:
     x: float
     y: float
+    date_recorded: date
 
     def rescale(self, x_scale, y_scale):
         return Point(
             x=self.x / x_scale,
-            y=self.y / y_scale
+            y=self.y / y_scale,
+            date_recorded=self.date_recorded
         )
 
 
@@ -159,3 +162,7 @@ class Line:
     def angle(self):
         """Returns the negative angle in degrees (as linerider inverts the y-axis)"""
         return -math.degrees(math.atan(self.gradient))
+
+    @property
+    def date_recorded(self) -> date:
+        return self.point_a.date_recorded

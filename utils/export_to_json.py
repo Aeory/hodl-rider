@@ -39,10 +39,14 @@ def track_to_json(track: Track, filename=None):
         ],
         "lines": []
     }
+
+    last_year = 0
+    last_month = 0
+
     for idx, line in enumerate(track.smoothed_lines):
+
         linerider_line = {
-            "id": idx + 1,
-            "type": line.type,  # int(not idx % 2),
+            "type": line.type,
             "x1": line.point_a.x,
             "y1": line.point_a.y,
             "x2": line.point_b.x,
@@ -53,10 +57,21 @@ def track_to_json(track: Track, filename=None):
         }
         linerider_track['lines'].append(linerider_line)
 
-    last_index = idx
+        if (last_year < line.date_recorded.year) or (last_month < line.date_recorded.month):
+            label = string_to_track(
+                s=line.date_recorded.isoformat(),
+                x=line.point_a.x,
+                y=line.point_b.y - 50,
+                scale=0.1
+            )
+
+            linerider_track['lines'].extend(label)
+
+            last_year = line.date_recorded.year
+            last_month = line.date_recorded.month
+
     for idx, line in enumerate(track.lines):
         linerider_line = {
-            "id": idx + 1 + last_index,
             "type": 2,
             "x1": line.point_a.x,
             "y1": line.point_a.y,
@@ -68,9 +83,8 @@ def track_to_json(track: Track, filename=None):
         }
         linerider_track['lines'].append(linerider_line)
 
-    linerider_track['lines'].extend(
-        string_to_track('Alex and Henry made this linerider tool', 0, 200, id_start=len(linerider_track['lines']), scale=0.5)
-    )
+    for i, line in enumerate(linerider_track['lines']):
+        line['id'] = i
 
     content = json.dumps(linerider_track)
     create_json(filename=linerider_track['label'], json_content=content)
