@@ -2,7 +2,6 @@ import math
 from dataclasses import dataclass
 from datetime import date
 from typing import List
-from enum import Enum
 from random import random
 import settings
 
