@@ -2,9 +2,7 @@
   "label": "test-output",
   "creator": "hodl-rider v0.1",
   "description": "",
-  "duration": 40,
   "version": "6.2",
-  "audio": null,
   "startPosition": {
     "x": 0,
     "y": 0
@@ -20,13 +18,6 @@
         "y": 0
       },
       "remountable": true
-    }
-  ],
-  "layers": [
-    {
-      "id": 0,
-      "name": "Base Layer",
-      "visible": true
     }
   ],
   "lines": [

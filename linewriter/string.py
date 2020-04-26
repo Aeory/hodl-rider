@@ -1,5 +1,11 @@
+from logging import getLogger
 import json
+from typing import List
+from models import Line
+from export.models.line import LineRiderLine
 
+
+logger = getLogger(__name__)
 
 def string_to_track(s: str, x: float, y: float, scale: float = 1.0, x_gap: float = 66.5):
     x_gap *= scale
@@ -9,7 +15,10 @@ def string_to_track(s: str, x: float, y: float, scale: float = 1.0, x_gap: float
         if c == ' ':
             continue
 
-        char_lines = json.loads(open(f'chars/{c}.json').read())
+        try:
+            char_lines = json.loads(open(f'linewriter/chars/{c}.json').read())
+        except FileNotFoundError:
+            logger.warning(f"String writer could not find character '{c}'")
 
         for line in char_lines:
             line['x1'] *= scale
@@ -22,6 +31,6 @@ def string_to_track(s: str, x: float, y: float, scale: float = 1.0, x_gap: float
             line['y1'] += y
             line['y2'] += y
 
-            track.append(line)
+            track.append(LineRiderLine(line))
 
     return track

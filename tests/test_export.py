@@ -1,7 +1,7 @@
 import unittest
 from tests.data.export_test_data import example_track
 import json
-from utils.export_to_json import track_to_json
+from export.export_to_json import track_to_json
 import os
 
 
