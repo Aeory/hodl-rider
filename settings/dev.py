@@ -26,4 +26,4 @@ TITLE = True
 STARTING_AREA_X = 100
 STARTING_AREA_Y = 4
 
-MINIMUM_ACCELERATION_CHANCE = 0.3  # As a decimal representing a percentage chance out of 100
+MINIMUM_ACCELERATION_CHANCE = 0.2  # As a decimal representing a percentage chance out of 100
