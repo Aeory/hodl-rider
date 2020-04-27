@@ -1,17 +1,78 @@
 {% extends "_base.html" %}
 {% block content %}
 
-<div>
-  <h1>Welcome!</h1>
-  <hr><br>
-  <p>Add some content here!</p>
-  <form action="/" method="post">
-    <input type="text" name="ticker">
-    <input type="date" name="from">
-    <input type="date" name="to">
-    {{ form.csrf_token }}
-    <input type="submit">
-  </form>
+
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col">
+                <h1>Hodlrider</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card mx-auto w-50">
+                <div class="card-body">
+                    <h5 class="card-title">Hodl</h5>
+                    <p class="card-text mt-1"><em>verb</em></p>
+                    <p class="card-text mt-1">
+                        To Hold On for Dear Life when crypto crashes... because crypto <strong>always recovers</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 mx-auto">
+        <figure class="figure mx-auto">
+          <img src="https://media.giphy.com/media/Vi5qBEpExoCmzEcDvF/giphy.gif" class="figure-img img-fluid rounded">
+          <figcaption class="figure-caption">The Great BTC Massacre - 2017 (colorized).</figcaption>
+        </figure>
+    </div>
+
+    <div class="row mt-4 mx-auto">
+        <div class="col mx-auto">
+            <form action="/hodl" method="post">
+                <input type="text" name="ticker">
+                <input type="date" name="from">
+                <input type="date" name="to">
+                {{ form.csrf_token }}
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+     <div class="row mt-4">
+        <div class="col">
+            <p>Instructions?</p>
+        </div>
+     </div>
+
+    <div class="row align-items-start">
+        <div class="col">
+            <div class="card w-25">
+                <div class="card-body">
+                    <p class="card-text mt-1"><em>@Henry</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card w-25">
+                <div class="card-body">
+                    <p class="card-text mt-1"><em>@Alex</em></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col">
+           <p>GIEF tips.</p>
+       </div>
+    </div>
 </div>
 
 {% endblock %}
