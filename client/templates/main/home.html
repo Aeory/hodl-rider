@@ -5,6 +5,13 @@
   <h1>Welcome!</h1>
   <hr><br>
   <p>Add some content here!</p>
+  <form action="/hodl" method="post">
+    <input type="text" name="ticker">
+    <input type="date" name="from">
+    <input type="date" name="to">
+    {{ form.csrf_token }}
+    <input type="submit">
+  </form>
 </div>
 
 {% endblock %}

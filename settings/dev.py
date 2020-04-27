@@ -27,3 +27,6 @@ STARTING_AREA_X = 100
 STARTING_AREA_Y = 4
 
 MINIMUM_ACCELERATION_CHANCE = 0.2  # As a decimal representing a percentage chance out of 100
+
+DEFAULT_X_SCALE = 0.1
+DEFAULT_Y_SCALE = -0.4

@@ -7,8 +7,7 @@ from export.models.track import LineRiderTrack
 def track_to_json(track: Track):
     linerider_track = LineRiderTrack(track)
     content = json.dumps(linerider_track.to_json())
-    create_json(filename=linerider_track.label, json_content=content)
-    return linerider_track
+    return content
 
 
 def create_json(filename: str = "example", json_content: str = "{}"):

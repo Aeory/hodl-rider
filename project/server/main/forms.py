@@ -2,11 +2,11 @@
 
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms import StringField, DateField
+from wtforms.validators import DataRequired
 
 
 class HodlForm(FlaskForm):
-    tracker = StringField("Stock tracker", [DataRequired()])
-
-
+    ticker = StringField("Stock tracker", [DataRequired()])
+    from_date = DateField("From")
+    to_date = DateField("Till")

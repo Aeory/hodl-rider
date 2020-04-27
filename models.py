@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import date
 from typing import List
 from random import random
-import settings
+import settings as default_settings
 
 
 class Track:
@@ -20,25 +20,25 @@ class Track:
             self,
             start_date: date,
             end_date: date,
-            x_scale: float = 1,
-            y_scale: float = 100,
             ticker: str = "BTC",
             points: List['Point'] = None,
-            smoothing_coefficient: int = settings.SMOOTHING['coefficient']
+            config: dict = {}
     ):
-        if not x_scale or not y_scale:
+
+        self.x_scale = config.get('x_scale', default_settings.DEFAULT_X_SCALE)
+        self.y_scale = config.get('y_scale', default_settings.DEFAULT_Y_SCALE)
+        if not self.x_scale or not self.y_scale:
             raise ValueError("x-scale and y-scale values must be non-zero")
-        self.x_scale = x_scale
-        self.y_scale = y_scale
         self.start_date = start_date
         self.end_date = end_date
         self.ticker = ticker
         self.points: List[Point] = points or []
         self._lines: List[Line] = []
         self._smoothed_lines: List[Line] = []
-        self._smoothing_coefficient = smoothing_coefficient
-        self._starting_acceleration_lines = settings.STARTING_ACCELERATION_LINES
-        self._smoothing_algorithm = settings.SMOOTHING['type']
+        self._smoothing_algorithm = default_settings.SMOOTHING['type']
+        self._smoothing_coefficient = config.get('smoothing', default_settings.SMOOTHING['coefficient'])
+        self._starting_acceleration_lines = config.get('starting_acceleration', default_settings.STARTING_ACCELERATION_LINES)
+        self._minimum_acceleration_chance = config.get('acceleration_chance', default_settings.MINIMUM_ACCELERATION_CHANCE)
 
     @property
     def lines(self):
@@ -113,7 +113,7 @@ class Track:
         for i, line in enumerate(self._smoothed_lines[self._starting_acceleration_lines:]):
             # The chance starts at 20% for flat lines, and is increased or decreased by the angle, maxing at 100%
             # for angles of 36 degrees of more, and dropping to 0% chance at angles less than -25 degrees.
-            chance = min(line.angle / 45 + settings.MINIMUM_ACCELERATION_CHANCE, 1)
+            chance = min(line.angle / 45 + self._minimum_acceleration_chance, 1)
             if random() < chance:
                 line.type = LineType.ACCELERATION
             else:
