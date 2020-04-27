@@ -109,7 +109,8 @@ class Track:
     def _calculate_acceleration(self):
         for line in self._smoothed_lines[:self._starting_acceleration_lines]:
             line.type = LineType.ACCELERATION
-        for line in self._smoothed_lines[self._starting_acceleration_lines:]:
+
+        for i, line in enumerate(self._smoothed_lines[self._starting_acceleration_lines:]):
             # The chance starts at 20% for flat lines, and is increased or decreased by the angle, maxing at 100%
             # for angles of 36 degrees of more, and dropping to 0% chance at angles less than -25 degrees.
             chance = min(line.angle / 45 + settings.MINIMUM_ACCELERATION_CHANCE, 1)
@@ -117,6 +118,15 @@ class Track:
                 line.type = LineType.ACCELERATION
             else:
                 line.type = LineType.NORMAL
+
+            # Dead-zone protection
+            if line.type == LineType.NORMAL and self._starting_acceleration_lines + i + 1 < len(self._smoothed_lines):
+                before_line = self._smoothed_lines[self._starting_acceleration_lines + i - 1]
+                after_line = self._smoothed_lines[self._starting_acceleration_lines + i + 1]
+
+                # If this looks like a gully, then make the middle line acceleration
+                if before_line.angle < 0 < after_line.angle:
+                    line.type = LineType.ACCELERATION
 
 
 @dataclass
