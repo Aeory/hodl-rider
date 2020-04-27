@@ -12,13 +12,16 @@ def hodl(
         end_date: str,
         config: dict = {}
 ):
-
     data = tiingo_client.get(start_date or None, end_date or None, ticker)
     start = data[0]
-    x_scale, y_scale = config.get('x_scale', settings.DEFAULT_X_SCALE), config.get('y_scale', settings.DEFAULT_Y_SCALE)
+    start_date = parser.parse(start_date or start['date']).date()
+    end_date = parser.parse(end_date or data[-1]['date']).date()
+
+    x_scale = config.get('x_scale', settings.DEFAULT_X_SCALE)
+    y_scale = config.get('y_scale', settings.DEFAULT_Y_SCALE)
     track = Track(
-        parser.parse(start_date or start['date']).date(),
-        parser.parse(end_date or data[-1]['date']).date(),
+        start_date,
+        end_date,
         ticker,
         [
             Point(
