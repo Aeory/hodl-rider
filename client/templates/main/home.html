@@ -42,7 +42,7 @@
                                 <label for="ticker">Ticker Symbol</label>
                              </div>
                              <div class="col">
-                                 <input type="text" class="form-control" id="ticker" aria-describedby="ticker">
+                                 <input type="text" class="form-control" id="ticker" name="ticker" aria-describedby="ticker">
                                  <small id="tickerHelp" class="form-text text-muted">The stock you want to ride</small>
                              </div>
                         </div>
@@ -54,10 +54,10 @@
                          <div class="form-group">
                              <div class="form-group date-range">
                                  <div class="col">
-                                    <label for="from-date">From:</label>
+                                    <label for="from">From:</label>
                                  </div>
                                  <div class="col">
-                                     <input data-provide="datepicker" class="datepicker" id="from-date" data-date-format="mm/dd/yyyy" placeholder="The beginning">
+                                     <input data-provide="datepicker" class="datepicker" id="from" name="from" data-date-format="mm/dd/yyyy" placeholder="The beginning">
                                  </div>
                              </div>
                         </div>
@@ -67,10 +67,10 @@
                          <div class="form-group">
                              <div class="form-group date-range">
                                  <div class="col">
-                                     <label for="from-date">To:</label>
+                                     <label for="to">To:</label>
                                  </div>
                                  <div class="col">
-                                     <input data-provide="datepicker" class="datepicker" id="from-date" data-date-format="mm/dd/yyyy" placeholder="The beginning">
+                                     <input data-provide="datepicker" class="datepicker" id="to" name="to" data-date-format="mm/dd/yyyy" placeholder="to the end">
                                  </div>
                              </div>
                         </div>

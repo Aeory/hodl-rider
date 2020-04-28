@@ -5,6 +5,7 @@ import os
 
 from flask import Flask, render_template
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_compress import Compress
 from flask_bootstrap import Bootstrap
 
 
@@ -21,6 +22,7 @@ def create_app(script_info=None):
         template_folder="../../client/templates",
         static_folder="../../client/static",
     )
+    Compress(app)
 
     # set config
     app_settings = os.getenv(
