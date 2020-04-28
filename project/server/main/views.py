@@ -13,15 +13,15 @@ main_blueprint = Blueprint("main", __name__)
 def home():
     form = HodlForm(request.form)
     if request.method == "POST" and form.validate_on_submit():
-        ticker = request.form.get('ticker')
-        from_date = request.form.get('from')
-        to_date = request.form.get('from')
+        ticker = form.ticker.data
+        from_date = form.from_date.data
+        to_date = form.to_date.data
         config = {
-            'smoothing': request.form.get('smoothing'),
-            'starting_acceleration': request.form.get('starting_acceleration'),
-            'acceleration_chance': request.form.get('acceleration_chance'),
-            'x_scale': request.form.get('x_scale'),
-            'y_scale': request.form.get('y_scale')
+            'smoothing': form.smoothing.data,
+            'starting_acceleration': form.starting_acceleration.data,
+            'acceleration_chance': form.acceleration_chance.data,
+            'x_scale': form.x_scale.data,
+            'y_scale': - form.y_scale.data
         }
         data = api(ticker, from_date, to_date, config)
         file_data = BytesIO(data.encode())

@@ -15,6 +15,8 @@ def string_to_track(s: str, x: float, y: float, scale: float = 1.0, x_gap: float
             continue
 
         try:
+            if c == '.':
+                c = 'dot'  # GCP doesn't allow ..json as a filename :/
             char_lines = json.loads(open(f'linewriter/chars/{c}.json').read())
         except FileNotFoundError:
             logger.warning(f"String writer could not find character '{c}'")

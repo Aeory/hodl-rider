@@ -13,8 +13,8 @@
 
     <div class="row mt-4 mx-auto">
         <figure class="figure mx-auto">
-          <img src="https://media.giphy.com/media/Vi5qBEpExoCmzEcDvF/giphy.gif" class="figure-img img-fluid rounded">
-          <figcaption class="figure-caption">The Great BTC Massacre - 2017 (colorized).</figcaption>
+            <img src="https://media.giphy.com/media/Vi5qBEpExoCmzEcDvF/giphy.gif" class="figure-img img-fluid rounded">
+            <figcaption class="figure-caption">The Great BTC Massacre, 2017 (colorized).</figcaption>
         </figure>
     </div>
 
@@ -34,59 +34,87 @@
 
     <div class="row mt-4 mx-auto">
         <div class="col mx-auto">
+            {% for field in form %}
+                    <p>{% for error in field.errors %}{{error}}{% endfor %}</p>
+            {% endfor %}
             <form action="/" method="post">
                 <div class="row">
                     <div class="col">
-                         <div class="form-group">
-                             <div class="col">
-                                <label for="ticker">Ticker Symbol</label>
-                             </div>
-                             <div class="col">
-                                 <input type="text" class="form-control" id="ticker" name="ticker" aria-describedby="ticker">
-                                 <small id="tickerHelp" class="form-text text-muted">The stock you want to ride</small>
-                             </div>
+                        <div class="form-group">
+                            <label for="ticker">ticker symbol</label>
+                            <input type="text" class="form-control" id="ticker" name="ticker"
+                                   aria-describedby="ticker">
+                            <small id="tickerHelp" class="form-text text-muted">the stock you want to ride</small>
                         </div>
                     </div>
                 </div>
 
-                 <div class="row">
-                    <div class="col ">
-                         <div class="form-group">
-                             <div class="form-group date-range">
-                                 <div class="col">
-                                    <label for="from">From:</label>
-                                 </div>
-                                 <div class="col">
-                                     <input data-provide="datepicker" class="datepicker" id="from" name="from" data-date-format="mm/dd/yyyy" placeholder="The beginning">
-                                 </div>
-                             </div>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 date-range">
+                        <label for="from_date">from</label>
+                        <input data-provide="datepicker" class="datepicker form-control" id="from_date" name="from_date"
+                               data-date-format="dd/mm/yyyy" placeholder="The beginning">
                     </div>
-
-                    <div class="col">
-                         <div class="form-group">
-                             <div class="form-group date-range">
-                                 <div class="col">
-                                     <label for="to">To:</label>
-                                 </div>
-                                 <div class="col">
-                                     <input data-provide="datepicker" class="datepicker" id="to" name="to" data-date-format="mm/dd/yyyy" placeholder="to the end">
-                                 </div>
-                             </div>
-                        </div>
+                    <div class="form-group col-md-6 date-range">
+                        <label for="to_date">to</label>
+                        <input data-provide="datepicker" class="datepicker form-control" id="to_date" name="to_date"
+                               data-date-format="dd/mm/yyyy" placeholder="to the end">
                     </div>
                 </div>
+                <p>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#advancedSettings"
+                            aria-expanded="false" aria-controls="collapseExample">
+                        for science 🧪 (advanced settings)
+                    </button>
+                </p>
+                <div class="collapse" id="advancedSettings">
+                    <div class="form-group">
+                        <label for="smoothing">track smoothhhhnessss</label>
+                        <input type="number" min="1" max="100" class="form-control" id="smoothing" name="smoothing"
+                               placeholder="5">
+                        <small id="smoothingHelp" class="form-text text-muted">1 is not an appropriate answer...</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="smoothing">number of days per track piece (x-axis scale)</label>
+                        <input type="number" step="0.01" min="0.01" max="100" class="form-control" id="x_scale"
+                               name="x_scale" placeholder="0.1">
+                        <small id="xAxisHelp" class="form-text text-muted">reducing this makes the ride
+                            longer???</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="smoothing">number of dollars per height (y-axis scale)</label>
+                        <input type="number" step="0.01" min="0.01" max="100" class="form-control" id="y_scale"
+                               name="y_scale" placeholder="0.4">
+                        <small id="yAxisHelp" class="form-text text-muted">Big numbers for crypto advised..</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="smoothing">minimum acceleration chance</label>
+                        <input type="number" step="0.01" min="0.01" max="1" class="form-control"
+                               id="acceleration_chance" name="acceleration_chance" placeholder="0.2">
+                        <small id="minAccelHelp" class="form-text text-muted">the smallest chance that a piece of track
+                            will be an accelerator, results above .4 may result in orbit.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="smoothing">starting acceleration tracks</label>
+                        <input type="number" min="1" class="form-control" id="starting_acceleration"
+                               name="starting_acceleration" placeholder="5">
+                        <small id="startingAccelHelp" class="form-text text-muted">Started from the bottom now we're
+                            here</small>
+                    </div>
+                </div>
+
                 {{ form.csrf_token }}
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 
-     <div class="row mt-4">
+    <div class="row mt-4">
         <div class="col">
             <p>Instructions?</p>
         </div>
-     </div>
+    </div>
 
     <div class="row align-items-start">
         <div class="col">
@@ -107,9 +135,9 @@
     </div>
 
     <div class="row">
-       <div class="col">
-           <p>GIEF tips.</p>
-       </div>
+        <div class="col">
+            <p>GIEF tips.</p>
+        </div>
     </div>
 </div>
 

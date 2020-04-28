@@ -8,15 +8,16 @@ import settings
 
 def hodl(
         ticker: str,
-        start_date: str,
-        end_date: str,
+        start_date: date,
+        end_date: date,
         config: dict = {}
 ):
-    data = tiingo_client.get(start_date, end_date, ticker)
+    start_date_string = start_date.isoformat() if start_date else ''
+    end_date_string = end_date.isoformat() if end_date else ''
+    data = tiingo_client.get(start_date_string, end_date_string, ticker)
     start = data[0]
-    start_date = parser.parse(start_date or start['date']).date()
-    end_date = parser.parse(end_date or data[-1]['date']).date()
-
+    start_date = parser.parse(start['date']).date()
+    end_date = parser.parse(data[-1]['date']).date()
     x_scale = config.get('x_scale') or settings.DEFAULT_X_SCALE
     y_scale = config.get('y_scale') or settings.DEFAULT_Y_SCALE
     track = Track(

@@ -11,7 +11,8 @@ automatic_scaling:
   cpu_utilization:
     target_utilization: 0.75
   target_concurrent_requests: 100
-resources:
-  cpu: 1
-  memory_gb: 1
-  disk_size_gb: 5
+
+
+skip_files:
+  - venv/
+  - tracks/
