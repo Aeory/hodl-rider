@@ -18,5 +18,8 @@ RUN pip install -r requirements.txt
 # add app
 COPY . /usr/src/app
 
+# expose the port
+EXPOSE 8080:8080
+
 # run server
-CMD python manage.py run -h 0.0.0.0
+CMD ["./entrypoint.sh"]
