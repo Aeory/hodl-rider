@@ -10,16 +10,13 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # add requirements
-COPY ../hodl/requirements.txt /usr/src/app/requirements.txt
+COPY requirements.txt /usr/src/app/requirements.txt
 
 # install requirements
 RUN pip install -r requirements.txt
 
-# add entrypoint.sh
-COPY ../hodl/entrypoint.sh /usr/src/app/entrypoint.sh
-
 # add app
-COPY ../hodl /usr/src/app
+COPY . /usr/src/app
 
 # run server
-CMD ["./entrypoint.sh"]
+CMD python manage.py run -h 0.0.0.0

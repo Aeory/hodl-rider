@@ -1,8 +1,7 @@
 # project/server/main/views.py
 from api import hodl as api
 
-from flask import render_template, Blueprint, request, jsonify, url_for, redirect, send_file
-from werkzeug import FileWrapper
+from flask import render_template, Blueprint, request, send_file
 from io import BytesIO
 
 from .forms import HodlForm

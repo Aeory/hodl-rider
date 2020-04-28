@@ -25,8 +25,8 @@ class Track:
             config: dict = {}
     ):
 
-        self.x_scale = config.get('x_scale', default_settings.DEFAULT_X_SCALE)
-        self.y_scale = config.get('y_scale', default_settings.DEFAULT_Y_SCALE)
+        self.x_scale = config.get('x_scale') or default_settings.DEFAULT_X_SCALE
+        self.y_scale = config.get('y_scale') or default_settings.DEFAULT_Y_SCALE
         if not self.x_scale or not self.y_scale:
             raise ValueError("x-scale and y-scale values must be non-zero")
         self.start_date = start_date
@@ -36,9 +36,9 @@ class Track:
         self._lines: List[Line] = []
         self._smoothed_lines: List[Line] = []
         self._smoothing_algorithm = default_settings.SMOOTHING['type']
-        self._smoothing_coefficient = config.get('smoothing', default_settings.SMOOTHING['coefficient'])
-        self._starting_acceleration_lines = config.get('starting_acceleration', default_settings.STARTING_ACCELERATION_LINES)
-        self._minimum_acceleration_chance = config.get('acceleration_chance', default_settings.MINIMUM_ACCELERATION_CHANCE)
+        self._smoothing_coefficient = config.get('smoothing') or default_settings.SMOOTHING['coefficient']
+        self._starting_acceleration_lines = config.get('starting_acceleration') or default_settings.STARTING_ACCELERATION_LINES
+        self._minimum_acceleration_chance = config.get('acceleration_chance') or default_settings.MINIMUM_ACCELERATION_CHANCE
 
     @property
     def lines(self):
