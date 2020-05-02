@@ -24,7 +24,7 @@ def create_app(script_info=None):
         static_folder="../../client/static",
     )
     Compress(app)
-    Talisman(app)
+    Talisman(app, content_security_policy=None)
 
     # set config
     app_settings = os.getenv("APP_SETTINGS", "project.server.config.ProductionConfig")
