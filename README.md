@@ -2,7 +2,7 @@
 
 
 ## Installation
-Requires Python 3.8
+Requires Python 3.8 (thats right, we snuck one walrus in there 😉)
 
 ### Install dependencies 
 ```sh

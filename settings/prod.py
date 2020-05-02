@@ -6,3 +6,5 @@ RECAPTCHA = {
 }
 
 SECRET_KEY = os.environ.get('APP_SECRET_KEY')
+
+logging.basicConfig(level=logging.INFO)

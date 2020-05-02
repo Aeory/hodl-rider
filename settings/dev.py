@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
 
@@ -28,8 +29,10 @@ DEFAULT_X_SCALE = 0.1
 DEFAULT_Y_SCALE = -0.4
 
 RECAPTCHA = {
-    'site_key': "6LcTdPEUAAAAANd5e9og9S1PIUy9wPAOHD_-hayO",
-    'secret_key': "6LcTdPEUAAAAAOgSp1LzXlDKvtus-4xnOG18lwGo"
+    'site_key': "",
+    'secret_key': ""
 }
 
 APP_NAME="Hodl Rider"
+
+logging.basicConfig(level=logging.DEBUG)
