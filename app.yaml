@@ -1,0 +1,18 @@
+runtime: custom
+env: flex
+
+# This sample incurs costs to run on the App Engine flexible environment.
+# The settings below are to reduce costs during testing and are not appropriate
+# for production use. For more information, see:
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 5
+  cool_down_period_sec: 60
+  cpu_utilization:
+    target_utilization: 0.75
+  target_concurrent_requests: 100
+
+
+skip_files:
+  - venv/
+  - tracks/

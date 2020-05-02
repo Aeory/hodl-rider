@@ -8,14 +8,12 @@ import os
 class ExportJsonTestCase(unittest.TestCase):
     def test_export(self):
 
-        filename = 'test-output'
         track_to_json(example_track)
 
-        with open('data/export_example_1.json', 'r') as file:
+        with open("data/export_example_1.json", "r") as file:
             expected_output = json.load(file)
 
-        with open('test-output.json', 'r') as file:
+        with open("test-output.json", "r") as file:
             output = json.load(file)
             os.remove(file.name)
         self.assertEqual(output, expected_output)
-
