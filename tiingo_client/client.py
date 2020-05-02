@@ -29,9 +29,9 @@ def _cached_get(
         response = e.args[0].response
         if response.headers['Content-Type'] == 'application/json':
             json_body = json.loads(response.text)
-            if 'not found' in json_body['detail']:
+            if 'not found' in (details := json_body['detail']):
                 raise ValidationException(
-                    message=json_body['detail']
+                    message=details
                 ) from e
             else:
                 raise
