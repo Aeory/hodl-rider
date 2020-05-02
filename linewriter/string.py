@@ -6,32 +6,34 @@ from export.models.line import LineRiderLine
 logger = getLogger(__name__)
 
 
-def string_to_track(s: str, x: float, y: float, scale: float = 1.0, x_gap: float = 66.5):
+def string_to_track(
+    s: str, x: float, y: float, scale: float = 1.0, x_gap: float = 66.5
+):
     x_gap *= scale
 
     track = []
     for i, c in enumerate(s.upper()):
-        if c == ' ':
+        if c == " ":
             continue
 
         try:
-            if c == '.':
-                c = 'dot'  # GCP doesn't allow ..json as a filename :/
-            char_lines = json.loads(open(f'linewriter/chars/{c}.json').read())
+            if c == ".":
+                c = "dot"  # GCP doesn't allow ..json as a filename :/
+            char_lines = json.loads(open(f"linewriter/chars/{c}.json").read())
         except FileNotFoundError:
             logger.warning(f"String writer could not find character '{c}'")
             continue
 
         for line in char_lines:
-            line['x1'] *= scale
-            line['x2'] *= scale
-            line['y1'] *= scale
-            line['y2'] *= scale
+            line["x1"] *= scale
+            line["x2"] *= scale
+            line["y1"] *= scale
+            line["y2"] *= scale
 
-            line['x1'] += (i * x_gap) + x
-            line['x2'] += (i * x_gap) + x
-            line['y1'] += y
-            line['y2'] += y
+            line["x1"] += (i * x_gap) + x
+            line["x2"] += (i * x_gap) + x
+            line["y1"] += y
+            line["y2"] += y
 
             track.append(LineRiderLine(line))
 

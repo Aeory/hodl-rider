@@ -4,7 +4,6 @@ from models import Line
 
 
 class LineRiderLine:
-
     def __init__(self, line: Union[Line, dict]):
         if isinstance(line, Line):
             self.type = line.type
@@ -16,14 +15,13 @@ class LineRiderLine:
             self.leftExtended = False
             self.rightExtended = False
         elif isinstance(line, dict):
-            self.type = line['type']
-            self.x1 = line['x1']
-            self.y1 = line['y1']
-            self.x2 = line['x2']
-            self.y2 = line['y2']
-            self.flipped = line.get('flipped', False)
-            self.leftExtended = line.get('leftExtended', False)
-            self.rightExtended = line.get('rightExtended', False)
+            self.type = line["type"]
+            self.x1 = line["x1"]
+            self.y1 = line["y1"]
+            self.x2 = line["x2"]
+            self.y2 = line["y2"]
+            self.flipped = line.get("flipped", False)
+            self.leftExtended = line.get("leftExtended", False)
+            self.rightExtended = line.get("rightExtended", False)
         else:
             raise NotImplementedError()
-

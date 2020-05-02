@@ -25,9 +25,7 @@ def create_app(script_info=None):
     Compress(app)
 
     # set config
-    app_settings = os.getenv(
-        "APP_SETTINGS", "project.server.config.ProductionConfig"
-    )
+    app_settings = os.getenv("APP_SETTINGS", "project.server.config.ProductionConfig")
     app.config.from_object(app_settings)
 
     # set up extensions
