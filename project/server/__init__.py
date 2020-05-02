@@ -4,6 +4,7 @@
 import os
 
 from flask import Flask, render_template
+from flask_talisman import Talisman
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_compress import Compress
 from flask_bootstrap import Bootstrap
@@ -23,6 +24,7 @@ def create_app(script_info=None):
         static_folder="../../client/static",
     )
     Compress(app)
+    Talisman(app)
 
     # set config
     app_settings = os.getenv("APP_SETTINGS", "project.server.config.ProductionConfig")
