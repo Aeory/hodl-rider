@@ -1,10 +1,13 @@
 from datetime import date
-
-import dateutil
 from tiingo import TiingoClient
+from tiingo.restclient import RestClientError
+
 import settings
 from typing import Optional, List
 from utils.cache import json_cache
+import json
+
+from utils.exceptions import ValidationException
 
 client = TiingoClient(settings.TIINGO_CONFIG)
 
@@ -13,20 +16,30 @@ client = TiingoClient(settings.TIINGO_CONFIG)
 def _cached_get(
     ticker: str
 ) -> List[dict]:
-    data = client.get_ticker_price(
-        ticker=ticker,
-        fmt="json",
-        frequency=settings.RESAMPLE_FREQUENCY,
-        startDate=str(date.fromtimestamp(0)),
-        endDate=str(date.today())
-    )
-    return data
+    try:
+        data = client.get_ticker_price(
+            ticker=ticker,
+            fmt="json",
+            frequency=settings.RESAMPLE_FREQUENCY,
+            startDate=str(date.fromtimestamp(0)),
+            endDate=str(date.today())
+        )
+        return data
+    except RestClientError as e:
+        response = e.args[0].response
+        if response.headers['Content-Type'] == 'application/json':
+            json_body = json.loads(response.text)
+            if 'not found' in json_body['detail']:
+                raise ValidationException(
+                    message=json_body['detail']
+                ) from e
+            else:
+                raise
 
 
 def get(
     from_date: Optional[str], to_date: Optional[str], ticker: str = "BTC"
 ) -> List[dict]:
-
     start_date = from_date
     end_date = to_date or str(date.today())
 
