@@ -1,9 +1,5 @@
-from tiingo_client import client as tiingo_client
-from models import Track, Point
-from dateutil import parser
-from export.export_to_json import track_to_json, create_json
+from export.export_to_json import create_json
 from datetime import date
-import settings
 from api import hodl
 
 ticker = input("What ticker symbol do you want to track? (Default $SPY)") or "SPY"

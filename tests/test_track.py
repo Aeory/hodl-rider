@@ -1,7 +1,7 @@
 import unittest
 from dateutil import parser
 
-from models import Track, Line, Point
+from models import Point, Track
 
 
 class TrackTestCase(unittest.TestCase):

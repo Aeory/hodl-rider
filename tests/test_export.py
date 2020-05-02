@@ -8,7 +8,6 @@ import os
 class ExportJsonTestCase(unittest.TestCase):
     def test_export(self):
 
-        filename = "test-output"
         track_to_json(example_track)
 
         with open("data/export_example_1.json", "r") as file:
