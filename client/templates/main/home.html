@@ -6,249 +6,285 @@
     <div class="row">
         <div class="row">
             <div class="col">
-                <h1>Hodl Rider</h1>
+                <h1>hodl rider</h1>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-6">
 
-    <div class="row mt-4 mx-auto">
-        <figure class="figure mx-auto">
-            <img src="https://media.giphy.com/media/Vi5qBEpExoCmzEcDvF/giphy.gif" class="figure-img img-fluid rounded">
-            <figcaption class="figure-caption">The Great BTC Massacre, 2017 (colorized).</figcaption>
-        </figure>
-    </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card mx-auto">
+                        <div class="card-body">
+                            <h5 class="card-title">Hodl</h5>
+                            <p class="card-text mt-1"><em>verb</em></p>
+                            <p class="card-text mt-1">
+                                To Hold On for Dear Life when crypto crashes... because crypto <strong>always
+                                recovers</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div class="row mt-4">
-        <div class="col">
-            <div class="card mx-auto w-50">
-                <div class="card-body">
-                    <h5 class="card-title">Hodl</h5>
-                    <p class="card-text mt-1"><em>verb</em></p>
-                    <p class="card-text mt-1">
-                        To Hold On for Dear Life when crypto crashes... because crypto <strong>always recovers</strong>.
+            <div class="row mt-4">
+                <div class="col">
+                    <p class="h3 mb-3">instructions</p>
+                    <p>
+                        1. Fill in the form with any stock or currency tracker (including some cryptos), and
+                        optionally
+                        a
+                        start and end date. Press generate and a .track.json file will be generated.
+                    </p>
+                    <p>
+                        2. Go to <a href="https://linerider.com" rel=”noreferrer noopener”>linerider.com</a> and
+                        select
+                        "Load Track". Choose the track from your downloads.
+                    </p>
+                    <p>
+                        3. Press play, and <strong>hodl!
+                    </strong>
                     </p>
                 </div>
+
+            </div>
+            <div class="row mt-4 mx-auto">
+                <figure class="figure mx-auto">
+                    <img src="{{url_for('static', filename='hodl-rider.gif')}}"
+                         class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">The Great BTC Massacre, 2017 (colorized).</figcaption>
+                </figure>
             </div>
         </div>
-    </div>
+        <div class="col-lg-6">
 
-    <div class="row mt-4 mx-auto">
-        <div class="col mx-auto">
-            <form action="/" method="post">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="ticker">{{ form.ticker.label }}</label>
-                            <input type="text"
-                                   class="form-control {% if form.ticker.errors %} is-invalid {% endif %}"
-                                   id="ticker"
-                                   name="ticker"
-                                   value="{{ form.ticker.default }}"
-                                   aria-describedby="ticker">
-                            <div class="invalid-feedback">
-                                {% for error in form.ticker.errors %}
-                                    {{ error }}
-                                {% endfor %}
+            <div class="row mt-4 mx-auto">
+                <div class="col mx-auto">
+                    <form action="/" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ticker">{{ form.ticker.label }}</label>
+                                    <input type="text"
+                                           class="form-control {% if form.ticker.errors %} is-invalid {% endif %}"
+                                           id="ticker"
+                                           name="ticker"
+                                           value="{{ form.ticker.default }}"
+                                           aria-describedby="ticker">
+                                    <div class="invalid-feedback">
+                                        {% for error in form.ticker.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    <small id="tickerHelp" class="form-text text-muted">
+                                        {{ form.ticker.description }}
+                                    </small>
+                                </div>
                             </div>
-                            <small id="tickerHelp" class="form-text text-muted">
-                                {{ form.ticker.description }}
-                            </small>
                         </div>
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6 date-range">
-                        <label for="from_date">{{ form.from_date.label }}</label>
-                        <input data-provide="datepicker"
-                               class="datepicker form-control {% if form.from_date.errors %} is-invalid {% endif %}"
-                               id="from_date"
-                               name="from_date"
-                               data-date-format="dd/mm/yyyy"
-                               placeholder="The beginning">
-                        <div class="invalid-feedback">
-                            {% for error in form.from_date.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                        <small id="from_date_help" class="form-text text-muted">
-                            {{ form.from_date.description }}
-                        </small>
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 date-range">
+                                <label for="from_date">{{ form.from_date.label }}</label>
+                                <input data-provide="datepicker"
+                                       class="datepicker form-control {% if form.from_date.errors %} is-invalid {% endif %}"
+                                       id="from_date"
+                                       name="from_date"
+                                       data-date-format="dd/mm/yyyy"
+                                       placeholder="The beginning">
+                                <div class="invalid-feedback">
+                                    {% for error in form.from_date.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                <small id="from_date_help" class="form-text text-muted">
+                                    {{ form.from_date.description }}
+                                </small>
+                            </div>
 
-                    <div class="form-group col-md-6 date-range">
-                        <label for="to_date">{{ form.to_date.label }}</label>
-                        <input data-provide="datepicker"
-                               class="datepicker form-control {% if form.to_date.errors %} is-invalid {% endif %}"
-                               id="to_date"
-                               name="to_date"
-                               data-date-format="dd/mm/yyyy"
-                               placeholder="to the end">
-                        <div class="invalid-feedback">
-                            {% for error in form.to_date.errors %}
-                                {{ error }}
-                            {% endfor %}
+                            <div class="form-group col-md-6 date-range">
+                                <label for="to_date">{{ form.to_date.label }}</label>
+                                <input data-provide="datepicker"
+                                       class="datepicker form-control {% if form.to_date.errors %} is-invalid {% endif %}"
+                                       id="to_date"
+                                       name="to_date"
+                                       data-date-format="dd/mm/yyyy"
+                                       placeholder="to the end">
+                                <div class="invalid-feedback">
+                                    {% for error in form.to_date.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                <small id="to_date_help" class="form-text text-muted">
+                                    {{ form.to_date.description }}
+                                </small>
+                            </div>
                         </div>
-                        <small id="to_date_help" class="form-text text-muted">
-                            {{ form.to_date.description }}
-                        </small>
-                    </div>
-                </div>
-                <p>
-                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedSettings"
-                            aria-expanded="false" aria-controls="collapseExample">
-                        for science 🧪 (advanced settings)
-                    </button>
-                </p>
-                <div class="collapse" id="advancedSettings">
-                    <div class="form-group">
-                        <label for="smoothing">{{ form.smoothing.label }}</label>
-                        <input type="number"
-                               min="1"
-                               max="100"
-                               class="form-control {% if form.smoothing.errors %} is-invalid {% endif %}"
-                               id="smoothing"
-                               name="smoothing"
-                               placeholder="5">
-                        <div class="invalid-feedback">
-                            {% for error in form.smoothing.errors %}
-                                {{ error }}
-                            {% endfor %}
+                        <p>
+                            <button class="btn btn-secondary" type="button" data-toggle="collapse"
+                                    data-target="#advancedSettings"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                for science 🧪 (advanced settings)
+                            </button>
+                        </p>
+                        <div class="collapse" id="advancedSettings">
+                            <div class="form-group">
+                                <label for="smoothing">{{ form.smoothing.label }}</label>
+                                <input type="number"
+                                       min="1"
+                                       max="100"
+                                       class="form-control {% if form.smoothing.errors %} is-invalid {% endif %}"
+                                       id="smoothing"
+                                       name="smoothing"
+                                       placeholder="5">
+                                <div class="invalid-feedback">
+                                    {% for error in form.smoothing.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                <small id="smoothingHelp" class="form-text text-muted">
+                                    {{ form.smoothing.description }}
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="x_scale">{{ form.x_scale.label }}</label>
+                                <input type="number"
+                                       step="0.01"
+                                       min="0.01"
+                                       max="100"
+                                       class="form-control {% if form.x_scale.errors %} is-invalid {% endif %}"
+                                       id="x_scale"
+                                       name="x_scale"
+                                       placeholder="0.1">
+                                <div class="invalid-feedback">
+                                    {% for error in form.x_scale.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                <small id="xAxisHelp" class="form-text text-muted">
+                                    {{ form.x_scale.description }}
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="y_scale">{{ form.y_scale.label }}</label>
+                                <input type="number"
+                                       step="0.01"
+                                       min="0.01"
+                                       max="100"
+                                       class="form-control {% if form.y_scale.errors %} is-invalid {% endif %}"
+                                       id="y_scale"
+                                       name="y_scale"
+                                       placeholder="0.4">
+                                <div class="invalid-feedback">
+                                    {% for error in form.y_scale.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                <small id="yAxisHelp" class="form-text text-muted">
+                                    {{ form.y_scale.description }}
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="acceleration_chance"> {{ form.acceleration_chance.label }}</label>
+                                <input type="number"
+                                       step="0.01"
+                                       min="0.01"
+                                       max="1"
+                                       class="form-control {% if form.acceleration_chance.errors %} is-invalid {% endif %}"
+                                       id="acceleration_chance"
+                                       name="acceleration_chance"
+                                       placeholder="0.2">
+                                <div class="invalid-feedback">
+                                    {% for error in form.acceleration_chance.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                <small id="minAccelHelp" class="form-text text-muted">
+                                    {{ form.acceleration_chance.description }}
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="starting_acceleration"> {{ form.starting_acceleration.label }}</label>
+                                <input type="number"
+                                       min="1"
+                                       class="form-control {% if form.starting_acceleration.errors %} is-invalid {% endif %}"
+                                       id="starting_acceleration"
+                                       name="starting_acceleration"
+                                       placeholder="5">
+                                <div class="invalid-feedback">
+                                    {% for error in form.starting_acceleration.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                <small id="startingAccelHelp" class="form-text text-muted">
+                                    {{ form.starting_acceleration.description }}
+                                </small>
+                            </div>
                         </div>
-                        <small id="smoothingHelp" class="form-text text-muted">
-                            {{ form.smoothing.description }}
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="x_scale">{{ form.x_scale.label }}</label>
-                        <input type="number"
-                               step="0.01"
-                               min="0.01"
-                               max="100"
-                               class="form-control {% if form.x_scale.errors %} is-invalid {% endif %}"
-                               id="x_scale"
-                               name="x_scale"
-                               placeholder="0.1">
-                        <div class="invalid-feedback">
-                            {% for error in form.x_scale.errors %}
-                                {{ error }}
-                            {% endfor %}
+                        <div class="form-group">
+                            {{ form.recaptcha }}
                         </div>
-                        <small id="xAxisHelp" class="form-text text-muted">
-                            {{ form.x_scale.description }}
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="y_scale">{{ form.y_scale.label }}</label>
-                        <input type="number"
-                               step="0.01"
-                               min="0.01"
-                               max="100"
-                               class="form-control {% if form.y_scale.errors %} is-invalid {% endif %}"
-                               id="y_scale"
-                               name="y_scale"
-                               placeholder="0.4">
-                        <div class="invalid-feedback">
-                            {% for error in form.y_scale.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                        <small id="yAxisHelp" class="form-text text-muted">
-                            {{ form.y_scale.description }}
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="acceleration_chance"> {{ form.acceleration_chance.label }}</label>
-                        <input type="number"
-                               step="0.01"
-                               min="0.01"
-                               max="1"
-                               class="form-control {% if form.acceleration_chance.errors %} is-invalid {% endif %}"
-                               id="acceleration_chance"
-                               name="acceleration_chance"
-                               placeholder="0.2">
-                        <div class="invalid-feedback">
-                            {% for error in form.acceleration_chance.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                        <small id="minAccelHelp" class="form-text text-muted">
-                            {{ form.acceleration_chance.description }}
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="starting_acceleration"> {{ form.starting_acceleration.label }}</label>
-                        <input type="number"
-                               min="1"
-                               class="form-control {% if form.starting_acceleration.errors %} is-invalid {% endif %}"
-                               id="starting_acceleration"
-                               name="starting_acceleration"
-                               placeholder="5">
-                        <div class="invalid-feedback">
-                            {% for error in form.starting_acceleration.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                        <small id="startingAccelHelp" class="form-text text-muted">
-                            {{ form.starting_acceleration.description }}
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    {{ form.recaptcha }}
-                </div>
-                {{ form.csrf_token }}
+                        {{ form.csrf_token }}
 
-                <button type="submit" class="btn btn-primary">generate linerider track</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col">
-            <p class="h3">Instructions</p>
-            <p>
-                1. Fill in the form with any stock or currency tracker (including some cryptos), and optionally a start and end date. Press generate and a .track.json file will be generated.
-            </p>
-            <p>
-                2. Go to <a href="https://linerider.com" rel=”noreferrer noopener”>linerider.com</a> and select "Load Track". Choose the track from your downloads.
-            </p>
-            <p>
-                3. Press play, and <strong>hodl!
-            </strong>
-            </p>
-        </div>
-    </div>
-
-    <div class="row align-items-start">
-        <div class="col">
-            <div class="card w-50">
-                <div class="card-body">
-                    <h5 class="card-title">Henry George</h5>
-                    <p class="card-text mt=1">Make stax selling his bitcoin in 2017, then lost it all on silly cryptos 😭</p>
-                    <p class="card-text mt=1">Codes more than he likes to admit</p>
-                    <a href="https://www.linkedin.com/in/hjegeorge/" class="card-link">LinkedIn</a>
-                    <a href="https://github.com/HJEGeorge" class="card-link">Github</a>
+                        <button type="submit" class="btn btn-primary">generate linerider track</button>
+                    </form>
                 </div>
             </div>
-        </div>
+            <p class="h3 mt-3">made by</p>
+            <div class="row align-items-start mt-2">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Henry George</h5>
+                            <p class="card-text mt=1">Make stax selling his bitcoin in 2017, then lost it all on
+                                silly
+                                cryptos 😭</p>
+                            <p class="card-text mt=1">Codes more than he likes to admit</p>
+                            <a href="https://www.linkedin.com/in/hjegeorge/" class="card-link">LinkedIn</a>
+                            <a href="https://github.com/HJEGeorge" class="card-link">Github</a>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="col">
-            <div class="card w-50">
-                <div class="card-body">
-                    <h5 class="card-title">Alex Burbidge</h5>
-                    <p class="card-text mt=1">Didn't invest in bitcoin 🎉</p>
-                    <p class="card-text mt=1">Also codes sometimes.</p>
-                    <a href="https://www.linkedin.com/in/alexburbidge/" class="card-link">LinkedIn</a>
-                    <a href="https://github.com/aeory/" class="card-link">Github</a>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Alex Burbidge</h5>
+                            <p class="card-text mt-1">Didn't invest in bitcoin 🎉</p>
+                            <p class="card-text mt-1">Also codes sometimes.</p>
+                            <a href="https://www.linkedin.com/in/alexburbidge/" class="card-link">LinkedIn</a>
+                            <a href="https://github.com/aeory/" class="card-link">Github</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col">
-            <p>GIEF tips.</p>
+            <div class="row mt-3">
+                <div class="col">
+                    <p class="h5">help us pay for hosting</p>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" class="my-3" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_donations"/>
+                        <input type="hidden" name="business" value="5DX893AAGCDXU"/>
+                        <input type="hidden" name="item_name" value="fund hodl rider hosting and support"/>
+                        <input type="hidden" name="currency_code" value="GBP"/>
+                        <input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif"
+                               border="0"
+                               name="submit" title="PayPal - The safer, easier way to pay online!"
+                               alt="Donate with PayPal button"/>
+                        <img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
+                             height="1"/>
+                    </form>
+                </div>
+                <div class="col">
+                    <p class="h5">show me the code</p>
+                    <!-- Place this tag where you want the button to render. -->
+                    <a class="github-button" href="https://github.com/aeory/hodl-rider"
+                       data-color-scheme="no-preference: dark; light: light; dark: dark;"
+                       data-size="large" aria-label="Star aeory/hodl-rider on GitHub">Repo</a>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
