@@ -4,6 +4,7 @@ from api import hodl as api
 from flask import render_template, Blueprint, request, send_file
 from io import BytesIO
 
+from utils.exceptions import ValidationException
 from .forms import HodlForm
 
 main_blueprint = Blueprint("main", __name__)
@@ -23,12 +24,15 @@ def home():
             "x_scale": form.x_scale.data,
             "y_scale": -form.y_scale.data if form.y_scale.data else None,
         }
-        data = api(ticker, from_date, to_date, config)
-        file_data = BytesIO(data.encode())
-        return send_file(
-            file_data,
-            mimetype="application/json",
-            attachment_filename=f"{ticker.upper()}-hodl-rider.track.json",
-            as_attachment=True,
-        )
+        try:
+            data = api(ticker, from_date, to_date, config)
+            file_data = BytesIO(data.encode())
+            return send_file(
+                file_data,
+                mimetype="application/json",
+                attachment_filename=f"{ticker.upper()}-hodl-rider.track.json",
+                as_attachment=True,
+            )
+        except ValidationException as e:
+            form.ticker.errors.append(e.message)
     return render_template("main/home.html", form=form)

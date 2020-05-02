@@ -26,3 +26,10 @@ MINIMUM_ACCELERATION_CHANCE = (
 
 DEFAULT_X_SCALE = 0.1
 DEFAULT_Y_SCALE = -0.4
+
+RECAPTCHA = {
+    'site_key': "6LcTdPEUAAAAANd5e9og9S1PIUy9wPAOHD_-hayO",
+    'secret_key': "6LcTdPEUAAAAAOgSp1LzXlDKvtus-4xnOG18lwGo"
+}
+
+APP_NAME="Hodl Rider"

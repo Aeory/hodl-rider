@@ -43,6 +43,7 @@
                                    class="form-control {% if form.ticker.errors %} is-invalid {% endif %}"
                                    id="ticker"
                                    name="ticker"
+                                   value="{{ form.ticker.default }}"
                                    aria-describedby="ticker">
                             <div class="invalid-feedback">
                                 {% for error in form.ticker.errors %}
@@ -70,8 +71,8 @@
                                 {{ error }}
                             {% endfor %}
                         </div>
-                        <small id="datesHelp" class="form-text text-muted">
-                            {{ form.ticker.description }}
+                        <small id="from_date_help" class="form-text text-muted">
+                            {{ form.from_date.description }}
                         </small>
                     </div>
 
@@ -88,10 +89,13 @@
                                 {{ error }}
                             {% endfor %}
                         </div>
+                        <small id="to_date_help" class="form-text text-muted">
+                            {{ form.to_date.description }}
+                        </small>
                     </div>
                 </div>
                 <p>
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#advancedSettings"
+                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedSettings"
                             aria-expanded="false" aria-controls="collapseExample">
                         for science 🧪 (advanced settings)
                     </button>
@@ -190,10 +194,12 @@
                         </small>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    {{ form.recaptcha }}
+                </div>
                 {{ form.csrf_token }}
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">generate linerider track</button>
             </form>
         </div>
     </div>
