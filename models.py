@@ -22,8 +22,9 @@ class Track:
         end_date: date,
         ticker: str = "BTC",
         points: List["Point"] = None,
-        config: dict = {},
+        config: dict = None,
     ):
+        config = config or {}
 
         self.x_scale = config.get("x_scale") or default_settings.DEFAULT_X_SCALE
         self.y_scale = config.get("y_scale") or default_settings.DEFAULT_Y_SCALE
@@ -152,7 +153,9 @@ class Point:
     x: float
     y: float
     price: float = None
-    date_recorded: date = date.today()
+
+    # An ISO formatted date
+    date_recorded: str = date.today().isoformat()
 
     def rescale(self, x_scale, y_scale):
         return Point(
@@ -185,7 +188,10 @@ class Line:
     point_b: Point
 
     price: float = None
-    start_date: date = None
+
+    # An ISO formatted date
+    start_date: str = None
+
     type: int = LineType.NORMAL
 
     def __len__(self):

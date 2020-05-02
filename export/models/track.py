@@ -40,14 +40,14 @@ class LineRiderTrack:
                 )
                 or (
                     label_period == "MONTHS"
-                    and last_label_date.month < line.start_date.month
+                    and self.extract_month(last_label_date) < self.extract_month(line.start_date)
                 )
             ):
 
                 if label_period == "QUARTERS":
-                    date_label = f"Q{self.date_to_quarter(line.start_date) + 1} {line.start_date.year}"
+                    date_label = f"Q{self.date_to_quarter(line.start_date) + 1} {self.extract_year(line.start_date)}"
                 else:
-                    date_label = f"{line.start_date.isoformat()}"
+                    date_label = f"{line.start_date}"
 
                 label = string_to_track(
                     s=f"{date_label} - ${line.price:.2f}",
@@ -95,6 +95,13 @@ class LineRiderTrack:
         result["lines"] = [line.__dict__ for line in self.lines]
         return result
 
+    def date_to_quarter(self, d: str) -> int:
+        return (self.extract_month(d) - 1) // 3
+
     @staticmethod
-    def date_to_quarter(d: date) -> int:
-        return (d.month - 1) // 3
+    def extract_month(d: str) -> int:
+        return int(d.split('-')[1])
+
+    @staticmethod
+    def extract_year(d: str) -> str:
+        return d.split('-')[0]

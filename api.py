@@ -23,7 +23,7 @@ def hodl(ticker: str, start_date: date, end_date: date, config: dict = {}):
             Point(
                 x=idx + settings.STARTING_AREA_X * x_scale,
                 y=day["close"] - start["close"] + settings.STARTING_AREA_Y * y_scale,
-                date_recorded=parser.parse(day["date"]).date(),
+                date_recorded=day["date"].split('T')[0],
                 price=day["close"],
             )
             for idx, day in enumerate(data)
