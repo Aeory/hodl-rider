@@ -1,8 +1,9 @@
 # hodl-rider
 
+Check it out at [hodlrider.com](https://hodlrider.com)
 
 ## Installation
-Requires Python 3.8 (thats right, we snuck one walrus in there 😉)
+Requires Python 3.8 (that's right, we snuck one walrus in there 😉)
 
 ### Install dependencies 
 ```sh
