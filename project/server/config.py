@@ -18,6 +18,7 @@ class BaseConfig(object):
     RECAPTCHA_PUBLIC_KEY = settings.RECAPTCHA.get('site_key')
     RECAPTCHA_PRIVATE_KEY = settings.RECAPTCHA.get('secret_key')
     RECAPTCHA_DATA_ATTRS = {'theme': 'dark'}
+    GOOGLE_ANALYTICS_ID = settings.GOOGLE_ANALYTICS['id']
 
 
 class DevelopmentConfig(BaseConfig):
