@@ -17,6 +17,7 @@ TIINGO_API_KEY=<< GO GET ONE OF THESE >>
 APP_NAME="hodl-flask"
 APP_SETTINGS="project.server.config.DevelopmentConfig"
 FLASK_DEBUG=1
+GOOGLE_ANALYTICS_ID=
 EOF
 ```
 

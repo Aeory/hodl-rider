@@ -36,3 +36,7 @@ RECAPTCHA = {
 APP_NAME="Hodl Rider"
 
 logging.basicConfig(level=logging.DEBUG)
+
+GOOGLE_ANALYTICS = {
+    'id': os.environ.get('GOOGLE_ANALYTICS_ID')
+}
